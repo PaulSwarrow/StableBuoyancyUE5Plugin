@@ -19,6 +19,18 @@
 			"Name": "StableBuoyancy",
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "NativeImplementation",
+			"Type": "Runtime",
+			"LoadingPhase": "None"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "Water",
+			"Enabled": true,
+			"Optional": true
 		}
 	]
 }

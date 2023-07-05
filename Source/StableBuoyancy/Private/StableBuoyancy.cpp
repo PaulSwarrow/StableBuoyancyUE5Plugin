@@ -1,12 +1,41 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "StableBuoyancy.h"
+#include "Modules/ModuleManager.h"
 
 #define LOCTEXT_NAMESPACE "FStableBuoyancyModule"
 
 void FStableBuoyancyModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
+    
+	auto& ModuleManager = FModuleManager::Get();
+	const FName WaterModuleName("Water");
+	const FName NativeImplementationModuleName(TEXT("NativeImplementation"));
+
+	if (!FModuleManager::Get().ModuleExists(TEXT("NativeImplementation")))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Module 'NativeImplementation' not found."));
+	}
+
+	if (ModuleManager.IsModuleLoaded("Water"))
+    {
+        ModuleManager.LoadModuleChecked<IModuleInterface>("NativeImplementation");
+    }
+    else
+    {
+        FModuleManager::Get().OnModulesChanged().AddLambda([](FName Name, EModuleChangeReason Reason)
+        {
+            if (Name == "Water" && Reason == EModuleChangeReason::ModuleLoaded)
+            {
+                FModuleManager::Get().LoadModuleChecked<IModuleInterface>("NativeImplementation");
+            }
+            else if (Name == "Water" && Reason == EModuleChangeReason::ModuleUnloaded)
+            {
+                FModuleManager::Get().UnloadModule("NativeImplementation");
+            }
+        });
+    }
 }
 
 void FStableBuoyancyModule::ShutdownModule()
