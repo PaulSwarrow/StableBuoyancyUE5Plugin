@@ -13,11 +13,6 @@ void FStableBuoyancyModule::StartupModule()
 	const FName WaterModuleName("Water");
 	const FName NativeImplementationModuleName(TEXT("NativeImplementation"));
 
-	if (!FModuleManager::Get().ModuleExists(TEXT("NativeImplementation")))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Module 'NativeImplementation' not found."));
-	}
-
 	if (ModuleManager.IsModuleLoaded("Water"))
     {
         ModuleManager.LoadModuleChecked<IModuleInterface>("NativeImplementation");

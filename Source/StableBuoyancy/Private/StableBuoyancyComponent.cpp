@@ -11,19 +11,6 @@ void UStableBuoyancyComponent::BeginPlay()
 {
     Super::BeginPlay();
     GeneratePantoons();
-    if(FixCenterOfMass) {
-        auto Root = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
-        auto Center = GetOwner()->GetTransform().InverseTransformPosition(Root->GetCenterOfMass());
-        UE_LOG(LogTemp, Warning, TEXT("OLD Center: %s"), *Center.ToString());
-        //Center = Center;
-        Root->SetCenterOfMass(FVector::ZeroVector);
-        auto NewCenter = Root->GetCenterOfMass();
-        NewCenter = GetOwner()->GetTransform().InverseTransformPosition(NewCenter);
-        UE_LOG(LogTemp, Warning, TEXT("Local(?) Center: %s"), *NewCenter.ToString());
-    }
-
-    //TODO LOG Center
-
 }
 
 float UStableBuoyancyComponent::GetWaterLevel_Implementation(FVector WorldPosition) const
@@ -58,7 +45,6 @@ void UStableBuoyancyComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
     // Calculate the spring force based on the displacement
     float SpringConstant = Gravity * Mass / 2 * Buoyancy; // Adjust the spring constant as needed
     float Prediction = GravityForce.Z / (SpringConstant * DeltaTime);
-
 
     for (const FVector &Panton : Pantons)
     {

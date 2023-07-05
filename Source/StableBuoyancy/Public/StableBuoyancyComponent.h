@@ -14,7 +14,6 @@ class STABLEBUOYANCY_API UStableBuoyancyComponent : public USplineComponent
 {
 	GENERATED_BODY()
 
-
 public:
 	// Sets default values for this component's properties
 	UStableBuoyancyComponent();
@@ -29,12 +28,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy")
 	float DragCoefficient = 0.1f;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy")
-	bool FixCenterOfMass = true;
-	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy")
-	FVector FixedCenterOfMass = FVector(0.0f, 0.0f, -100.0f);
 
 protected:
 	// Called when the gaame starts
