@@ -40,6 +40,6 @@ protected:
 
 private:
 	void GeneratePantoons();
-	TArray<FVector> Pantons;
+	TArray<FVector> Pontoons;
 	void ApplyForceToPoint(UPrimitiveComponent *Root, FVector Point, float BaseForce, float DeltaTime);
 };

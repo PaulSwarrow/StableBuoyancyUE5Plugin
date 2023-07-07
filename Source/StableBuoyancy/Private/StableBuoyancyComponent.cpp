@@ -28,7 +28,7 @@ void UStableBuoyancyComponent::GeneratePantoons()
     {
         float Distance = Increment * static_cast<float>(i);
         FVector Point = GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::Local);
-        Pantons.Add(Point);
+        Pontoons.Add(Point);
     }
 }
 
@@ -46,8 +46,8 @@ void UStableBuoyancyComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
     float SpringConstant = Gravity * Mass / 2; // Adjust the spring constant as needed
     float Prediction = GravityForce.Z / (SpringConstant * DeltaTime);
 
-    float PointFrorce = SpringConstant / Pantons.Num();
-    for (const FVector &Panton : Pantons)
+    float PointFrorce = SpringConstant / Pontoons.Num();
+    for (const FVector &Panton : Pontoons)
     {
         FVector Point = GetOwner()->GetTransform().TransformPosition(Panton);
         ApplyForceToPoint(Root, Point + FVector(0, 0, -Prediction), PointFrorce, DeltaTime);
