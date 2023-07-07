@@ -17,7 +17,7 @@ class NATIVEIMPLEMENTATION_API UNativeStableBuoyancyComponent : public UStableBu
 
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy", meta = (ToolTip = "Reference to the water body component. if null - water level = 0"))
 	UWaterBodyComponent* WaterBody;
 
 	virtual float GetWaterLevel_Implementation(FVector WorldPosition) const override;
