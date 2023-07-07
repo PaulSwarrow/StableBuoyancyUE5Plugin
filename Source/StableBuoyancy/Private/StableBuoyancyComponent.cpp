@@ -43,13 +43,14 @@ void UStableBuoyancyComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
     FVector GravityForce = FVector(0.0f, 0.0f, Gravity) * Mass;
 
     // Calculate the spring force based on the displacement
-    float SpringConstant = Gravity * Mass / 2 * Buoyancy; // Adjust the spring constant as needed
+    float SpringConstant = Gravity * Mass / 2; // Adjust the spring constant as needed
     float Prediction = GravityForce.Z / (SpringConstant * DeltaTime);
 
+    float PointFrorce = SpringConstant / Pantons.Num();
     for (const FVector &Panton : Pantons)
     {
         FVector Point = GetOwner()->GetTransform().TransformPosition(Panton);
-        ApplyForceToPoint(Root, Point + FVector(0, 0, -Prediction), SpringConstant / Pantons.Num(), DeltaTime);
+        ApplyForceToPoint(Root, Point + FVector(0, 0, -Prediction), PointFrorce, DeltaTime);
     }
 }
 
@@ -67,6 +68,6 @@ void UStableBuoyancyComponent::ApplyForceToPoint(UPrimitiveComponent *Root, FVec
         FVector DampingForce = -DampingFactor * Velocity * DeltaTime;
 
         // Apply the combined force to the actor's root component
-        Root->AddForceAtLocation(SpringForce + DampingForce, Point);
+        Root->AddForceAtLocation(Buoyancy * SpringForce + DampingForce, Point);
     }
 }

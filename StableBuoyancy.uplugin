@@ -7,23 +7,34 @@
 	"Category": "Other",
 	"CreatedBy": "PallSwarrow",
 	"CreatedByURL": "",
-	"DocsURL": "",
+	"DocsURL": "https://docs.google.com/document/d/1o71TrVvdfcZjHVhCcYguBQHZ2J42mIA7tYPIej6g8FM/edit?usp=sharing",
 	"MarketplaceURL": "",
 	"SupportURL": "",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
 	"Installed": false,
+	"EngineVersion": "5.1.0",
 	"Modules": [
 		{
 			"Name": "StableBuoyancy",
 			"Type": "Runtime",
-			"LoadingPhase": "Default"
+			"LoadingPhase": "Default",
+			"PlatformAllowList": [
+				"Win64",
+				"Win32",
+				"Mac"
+			]
 		},
 		{
 			"Name": "NativeImplementation",
 			"Type": "Runtime",
-			"LoadingPhase": "None"
+			"LoadingPhase": "None",
+			"PlatformAllowList": [
+				"Win64",
+				"Win32",
+				"Mac"
+			]
 		}
 	],
 	"Plugins": [
