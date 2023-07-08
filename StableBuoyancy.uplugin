@@ -6,15 +6,15 @@
 	"Description": "Component providing easy and precise buoyancy independent from mass",
 	"Category": "Other",
 	"CreatedBy": "PallSwarrow",
-	"CreatedByURL": "",
+	"CreatedByURL": "https://www.pagangames.net/",
 	"DocsURL": "https://docs.google.com/document/d/1o71TrVvdfcZjHVhCcYguBQHZ2J42mIA7tYPIej6g8FM/edit?usp=sharing",
 	"MarketplaceURL": "",
-	"SupportURL": "",
+	"SupportURL": "pallswarrow@gmail.com",
 	"CanContainContent": true,
 	"IsBetaVersion": false,
 	"IsExperimentalVersion": false,
 	"Installed": false,
-	"EngineVersion": "5.1.0",
+	"EngineVersion": "5.2.0",
 	"Modules": [
 		{
 			"Name": "StableBuoyancy",
@@ -22,7 +22,6 @@
 			"LoadingPhase": "Default",
 			"PlatformAllowList": [
 				"Win64",
-				"Win32",
 				"Mac"
 			]
 		},
@@ -32,7 +31,6 @@
 			"LoadingPhase": "None",
 			"PlatformAllowList": [
 				"Win64",
-				"Win32",
 				"Mac"
 			]
 		}
