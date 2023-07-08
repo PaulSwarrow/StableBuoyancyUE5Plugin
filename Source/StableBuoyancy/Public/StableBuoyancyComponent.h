@@ -39,7 +39,7 @@ protected:
 	virtual float GetWaterLevel_Implementation(FVector WorldPosition) const;
 
 private:
-	void GeneratePantoons();
+	void GeneratePontoons();
 	TArray<FVector> Pontoons;
 	void ApplyForceToPoint(UPrimitiveComponent *Root, FVector Point, float BaseForce, float DeltaTime);
 };
