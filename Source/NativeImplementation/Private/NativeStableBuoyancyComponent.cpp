@@ -3,16 +3,31 @@
 #include "NativeStableBuoyancyComponent.h"
 #include "WaterSubsystem.h"
 
-float UNativeStableBuoyancyComponent::GetWaterLevel_Implementation(FVector WorldPosition) const
+FWaterLevelInfo UNativeStableBuoyancyComponent::GetWaterLevel_Implementation(FVector WorldPosition) const
 {
-    if(WaterBody == nullptr) {
-        return 0.0f;
-    }
+    auto World = GetWorld();
     
-    EWaterBodyQueryFlags QueryFlags =
-        EWaterBodyQueryFlags::ComputeLocation | EWaterBodyQueryFlags::ComputeNormal | EWaterBodyQueryFlags::ComputeImmersionDepth | EWaterBodyQueryFlags::ComputeVelocity | EWaterBodyQueryFlags::IncludeWaves;
+    FHitResult HitResult;
+    FVector EndPosition = WorldPosition + FVector(0, 0, -WaterBodyDetectionDistance);
 
-    FWaterBodyQueryResult QueryResult = WaterBody->QueryWaterInfoClosestToWorldLocation(WorldPosition, QueryFlags);
+    FWaterLevelInfo Result;
 
-    return QueryResult.GetWaterSurfaceLocation().Z;
+    if(World->LineTraceSingleByProfile(HitResult, WorldPosition, EndPosition, WaterBodyCollisionProfileName)) {
+        auto Body = Cast<AWaterBody>(HitResult.GetActor());
+        if(Body != nullptr) {
+            auto WaterComponet = Body->GetWaterBodyComponent();
+            Result.HasWaterBody = true;
+            EWaterBodyQueryFlags QueryFlags =    
+                EWaterBodyQueryFlags::ComputeLocation | 
+                EWaterBodyQueryFlags::ComputeNormal | 
+                EWaterBodyQueryFlags::ComputeImmersionDepth | 
+                EWaterBodyQueryFlags::ComputeVelocity | 
+                EWaterBodyQueryFlags::IncludeWaves;
+
+            FWaterBodyQueryResult QueryResult = WaterComponet->QueryWaterInfoClosestToWorldLocation(WorldPosition, QueryFlags);
+            Result.WaterLevel = QueryResult.GetWaterSurfaceLocation().Z;
+        }
+    }
+
+    return Result;
 }

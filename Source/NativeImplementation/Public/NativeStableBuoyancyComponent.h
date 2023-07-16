@@ -17,9 +17,13 @@ class NATIVEIMPLEMENTATION_API UNativeStableBuoyancyComponent : public UStableBu
 
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy", meta = (ToolTip = "Reference to the water body component. if null - water level = 0"))
-	UWaterBodyComponent* WaterBody;
 
-	virtual float GetWaterLevel_Implementation(FVector WorldPosition) const override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy", meta = (ToolTip = "Water body detection distance. Should be better that waves max height"))
+	float WaterBodyDetectionDistance = 1000.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "StableBuoyancy", meta = (ToolTip = "Water body collision profile name."))
+	FName WaterBodyCollisionProfileName = "WaterBodyCollision";
+
+	virtual FWaterLevelInfo GetWaterLevel_Implementation(FVector WorldPosition) const override;
 	
 };

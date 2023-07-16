@@ -9,6 +9,21 @@
 /**
  *
  */
+USTRUCT(BlueprintType)
+struct FWaterLevelInfo
+{
+    GENERATED_BODY()
+
+
+public:
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    float WaterLevel;
+
+    UPROPERTY(BlueprintReadWrite, EditAnywhere)
+    bool HasWaterBody;
+};
+
+
 UCLASS(Blueprintable, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class STABLEBUOYANCY_API UStableBuoyancyComponent : public USplineComponent
 {
@@ -34,9 +49,9 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "StableBuoyancy")
-	float GetWaterLevel(FVector WorldPosition) const;
+	FWaterLevelInfo GetWaterLevel(FVector WorldPosition) const;
 
-	virtual float GetWaterLevel_Implementation(FVector WorldPosition) const;
+	virtual FWaterLevelInfo GetWaterLevel_Implementation(FVector WorldPosition) const;
 
 private:
 	void GeneratePontoons();

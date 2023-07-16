@@ -15,9 +15,12 @@ void UStableBuoyancyComponent::BeginPlay()
     GeneratePontoons();
 }
 
-float UStableBuoyancyComponent::GetWaterLevel_Implementation(FVector WorldPosition) const
+FWaterLevelInfo UStableBuoyancyComponent::GetWaterLevel_Implementation(FVector WorldPosition) const
 {
-    return 0.0f;
+    FWaterLevelInfo Result;
+    Result.HasWaterBody = true;
+    Result.WaterLevel = 0.0f;
+    return Result;
 }
 
 void UStableBuoyancyComponent::GeneratePontoons()
@@ -64,7 +67,12 @@ void UStableBuoyancyComponent::TickComponent(float DeltaTime, ELevelTick TickTyp
 void UStableBuoyancyComponent::ApplyForceToPoint(UPrimitiveComponent *Root, FVector Point, float BaseForce, float DeltaTime)
 {
 
-    auto DeltaZ = GetWaterLevel(Point) - Point.Z;
+    auto WaterInfo = GetWaterLevel(Point);
+    if(!WaterInfo.HasWaterBody) 
+    {
+        return;
+    }
+    auto DeltaZ = WaterInfo.WaterLevel - Point.Z;
     if (DeltaZ > 0.0f)
     {
         FVector SpringForce = -FVector(0.0f, 0.0f, BaseForce) * DeltaZ * DeltaTime;
